@@ -1,21 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//import Finder from './screens/finder';
+//import Landing from './screens/landing';
+//import Login from './screens/login';
+import { Home, LandingContent, LoginContent, FinderContent, Header } from './screens/home';
+import { Image } from 'react-native';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function LogoTitle() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Image
+      style={{ width: 50, height: 50 }}
+      source={require('./img/tinderWorldWideLogo.png')}
+    />
+      );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator style={{ justifyContent: 'center'}}>
+        <Stack.Screen 
+        name="Landing" component={LandingContent}
+        options={{ headerTitle: props => <LogoTitle {...props} />,
+        headerStyle: { backgroundColor: "#000000" } }} />
+
+        <Stack.Screen 
+        name="Login" component={LoginContent} 
+        options={{ headerTitle: props => <LogoTitle {...props} />,
+        headerStyle: { backgroundColor: "#000000" } }} />
+
+        <Stack.Screen name="Finder" component={FinderContent} 
+        options={{ headerTitle: props => <LogoTitle {...props} />,
+        headerStyle: { backgroundColor: "#000000" } }} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
